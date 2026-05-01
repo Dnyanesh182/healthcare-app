@@ -1,0 +1,54 @@
+.gradient-ring-loader {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(255, 255, 255, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .gradient-ring-loader img {
+    width: 50px;
+    height: 50px;
+    z-index: 2;
+    position: absolute;
+  }
+  
+  .ring {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    animation: spin 1.2s linear infinite;
+  }
+  
+  .bar {
+    position: absolute;
+    width: 10px;
+    height: 24px;
+    top: 0;
+    left: 45px;
+    border-radius: 6px;
+    transform-origin: center 50px;
+    opacity: 0.1;
+    background-color: #007bff;
+  }
+  
+  /* Add transform and color/opacity for each bar */
+  .bar:nth-child(1)  { transform: rotate(0deg);   opacity: 1;   background-color: #002b80; }
+  .bar:nth-child(2)  { transform: rotate(30deg);  opacity: 0.95; background-color: #0040bf; }
+  .bar:nth-child(3)  { transform: rotate(60deg);  opacity: 0.9;  background-color: #0066cc; }
+  .bar:nth-child(4)  { transform: rotate(90deg);  opacity: 0.85; background-color: #0080ff; }
+  .bar:nth-child(5)  { transform: rotate(120deg); opacity: 0.75; background-color: #339cff; }
+  .bar:nth-child(6)  { transform: rotate(150deg); opacity: 0.6;  background-color: #66bfff; }
+  .bar:nth-child(7)  { transform: rotate(180deg); opacity: 0.45; background-color: #99d9ff; }
+  .bar:nth-child(8)  { transform: rotate(210deg); opacity: 0.3;  background-color: #cceeff; }
+  .bar:nth-child(9)  { transform: rotate(240deg); opacity: 0.2;  background-color: #e6f7ff; }
+  .bar:nth-child(10) { transform: rotate(270deg); opacity: 0.1;  background-color: #f0faff; }
+  .bar:nth-child(11) { transform: rotate(300deg); opacity: 0.05; background-color: #f5fcff; }
+  .bar:nth-child(12) { transform: rotate(330deg); opacity: 0.02; background-color: #fbfeff; }
+  
+  @keyframes spin {
+    100% { transform: rotate(360deg); }
+  }
+  

@@ -1,0 +1,39 @@
+#custom-date-range {
+    min-width: 150px;
+    z-index: 1;
+}
+
+.hc-datepicker-input-group .form-control {
+    padding: 0px 12px !important;
+    min-height: 36px;
+    height: 36px;
+}
+
+@media only screen and (min-width: 769px)
+{	
+    .hc-datepicker-input {
+        border-top-left-radius: 0px !important;
+        border-bottom-left-radius: 0px !important;
+        position: relative;
+        left: -4px;
+    }
+}
+@media only screen and (max-width: 769px)
+{	
+    #custom-date-range, .calender-icon {
+        z-index: 0 !important;
+    }
+}
+
+@media (min-width: 768px) {
+  .htc-min-width-230 {
+    min-width: 230px;
+  }
+}
+@media (max-width: 767.98px) {
+  .htc-min-width-230 {
+    min-width: 0;
+    width: 100%;
+  }
+}
+

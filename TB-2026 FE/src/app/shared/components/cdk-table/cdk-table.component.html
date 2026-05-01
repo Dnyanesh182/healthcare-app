@@ -1,0 +1,66 @@
+<!-- Table Start -->
+<div class="cdk-table-wrapper">
+  <table cdk-table [dataSource]="dataSource" class="cdk-table" aria-label="Dynamic data table with sortable columns, filters, and action buttons">
+
+    <!-- Label Header -->
+    <ng-container *ngFor="let column of displayedColumns" [cdkColumnDef]="column">
+      <th cdk-header-cell *cdkHeaderCellDef (click)="sortBy(column)">
+        {{ colConfigMap[column]?.headerName || column }}
+        <fa-icon class="ms-2 text-muted htc-font-size-10" [icon]="
+              sortColumn() === column
+                ? sortDirection() === 'asc'
+                  ? faSortUp
+                  : faSortDown
+                : faSort
+            "></fa-icon>
+      </th>
+      <td cdk-cell *cdkCellDef="let row; let i = index">
+        <app-overflow-tooltip [text]="row[column]"></app-overflow-tooltip>
+      </td>
+    </ng-container>
+
+    <!-- Action Column -->
+    <ng-container *ngIf="actions.length > 0" cdkColumnDef="action">
+      <th cdk-header-cell *cdkHeaderCellDef>Actions</th>
+      <td cdk-cell *cdkCellDef="let row">
+        <ng-container *ngFor="let action of row.actions">
+          <span [tooltip]="action.tooltip" container="body"
+            [ngClass]="{ 'd-inline-block': true, 'cursor-not-allowed': action.disable }">
+            <button [disabled]="action.disable" [ngClass]="action.class" class="btn btn-link p-0"
+              (click)="!action.disable && onAction(action.name, row)" style="pointer-events: auto;">
+              <fa-icon [icon]="action.icon"></fa-icon>
+            </button>
+          </span>
+        </ng-container>
+      </td>
+    </ng-container>
+
+    <!-- Filter Header -->
+    <ng-container *ngFor="let column of displayedColumns" [cdkColumnDef]="column + 'Filter'">
+      <th cdk-header-cell *cdkHeaderCellDef>
+        <div class="filter-input-wrapper">
+          <ng-container *ngIf="filterControls[column]">
+            <input class="custom-header-filter" [formControl]="filterControls[column]"
+              [placeholder]="colConfigMap[column]?.headerName || column" />
+            <fa-icon *ngIf="filterControls[column].value" [icon]="faTimes" class="clear-icon"
+              (click)="filterControls[column].setValue('')"></fa-icon>
+          </ng-container>
+
+        </div>
+      </th>
+    </ng-container>
+
+    <ng-container *ngIf="actions.length > 0" cdkColumnDef="actionFilter">
+      <th cdk-header-cell *cdkHeaderCellDef>
+        <div class="filter-placeholder"></div>
+      </th>
+    </ng-container>
+
+    <!-- Header Rows -->
+    <tr cdk-header-row *cdkHeaderRowDef="headerLabelColumns; sticky: true" class="cdk-table-header-row"></tr>
+    <tr cdk-header-row *cdkHeaderRowDef="headerFilterColumns; sticky: true" class="filter-row"></tr>
+
+    <!-- Data Row -->
+    <tr cdk-row *cdkRowDef="let row; columns: displayedColumns.concat(actions.length ? ['action'] : [])"></tr>
+  </table>
+</div>

@@ -1,0 +1,41 @@
+export const APP_ROUTES_PATH_CONST = {
+    DASHBOARD: 'dashboard',
+    USERS: 'users',
+    USER_PROFILE: 'userProfile',
+    ACCOUNT_GRID: 'accountGrid',
+    TEAMS: 'teams',
+    TEAM_DETAILS: 'teamDetails/:teamId/:accountId/:isAccountSelected',
+    ACCOUNT_DETAILS: 'accountDetails/:accountId',
+    WEB_CHECKS_REPORTS: 'reports/webChecksReports',
+    AUTO_CRED: 'autoCred',
+    RESET: 'reset',
+    LOGIN: 'login',
+    FORGOT: 'forgot',
+    AUTH: 'auth',
+    RESUME_TEMPLATE: 'resumeTemplate',
+    RESUME_TEMPLATE_DETAILS: 'resumeTemplateDetails/:templateId/:accountId/:isAccountSelected',
+    SUPER_ADMIN: 'superAdmin',
+    RESUME_FORMAT_REPORT: 'reports/resumeFormatterReport',
+    EMPLOYMENT_VERIFICATION_REPORT : 'reports/employeeVerificationReport',
+    LICENSE_VERIFICATION_REPORT : 'reports/licenseVerificationReport'
+};
+
+export const APP_ROUTES_PATH_CONST_MENU = {
+    DASHBOARD: '/dashboard',
+    USERS: '/users',
+    ACCOUNT_GRID: '/accountGrid',
+    TEAMS: '/teams',
+    ACCOUNT_DETAILS: '/accountDetails',
+    WEB_CHECKS_REPORTS: 'reports/webChecksReports',
+    AUTO_CRED: '/autoCred',
+    RESET: '/reset',
+    LOGIN: '/login',
+    FORGOT: '/forgot',
+    AUTH: '/auth',
+    RESUME_TEMPLATE: '/resumeTemplate',
+    RESUME_TEMPLATE_DETAILS: '/resumeTemplateDetails',
+    SUPER_ADMIN: '/superAdmin',
+    RESUME_FORMAT_REPORT: 'reports/resumeFormatterReport',
+    EMPLOYMENT_VERIFICATION_REPORT : 'reports/employeeVerificationReport',
+    LICENSE_VERIFICATION_REPORT : 'reports/licenseVerificationReport'
+};

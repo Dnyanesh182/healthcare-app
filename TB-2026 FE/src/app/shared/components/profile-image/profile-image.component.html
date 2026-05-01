@@ -1,0 +1,15 @@
+<!-- Profile Image Section -->
+<div class="position-relative profile-image-container mb-3">
+    <img [src]="profileImageUrl || DEFAULT_IMAGE" class="rounded-circle profile-img" alt="Profile"
+         (error)="profileImageUrl = ''">
+
+    <!-- Overlay buttons for editing or removing profile image -->
+    @if(showUploadAndRemoveButtons) {
+        <div class="image-overlay">
+            <button type="button" class="btn btn-sm btn-teal htc-border-radius px-4 py-2 me-1 mb-2"
+                (click)="uploadClicked()">{{profileImageUrl ? "Edit" : "Add"}}</button>
+            <button *ngIf="profileImageUrl" type="button" class="btn btn-sm btn-outline px-4 py-2 me-1 mb-2"
+                (click)="removePhotoProfile()">Remove Photo</button>
+        </div>
+    }
+</div>

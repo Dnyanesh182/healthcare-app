@@ -1,0 +1,95 @@
+<ng-select
+  id="multiple-select-dropdown"
+  [items]="fliteredData"
+  [placeholder]="placeHolder"
+  [appendTo]="isAppendBody ? 'body' : ''"
+  [ngClass]="scssClass"
+  class="multiple-select-dropdown"
+  [multiple]="true"
+  [bindValue]="bindValue"
+  [bindLabel]="bindLabel"
+  [clearable]="false"
+  [(ngModel)]="selectedValues"
+  [searchable]="false"
+  [closeOnSelect]="false"
+  [clearSearchOnAdd]="false"
+  [virtualScroll]="true"
+  [title]="tooltipData ? tooltipData : ''"
+  (change)="sendSelectedData()"
+  [disabled]="isDisabled"
+  (close)="onDropdownClose()"
+  data-form-type="other"
+>
+  <ng-template ng-header-tmp>
+    <input
+      #searchInput
+      class="form-control form-control-md m-2"
+      type="text"
+      placeholder="Search"
+      id="select-search"
+      [(ngModel)]="searchText"
+      (input)="filterSelectedData(searchInput.value)"
+    />
+    <span class="clear-button" (click)="clearInput()">×</span>
+    <div *ngIf="showSelectAll" class="justify-content-between align-items-center">
+      <div class="d-flex align-items-center">
+        <input
+          class="form-check-input m-2 p-2"
+          type="checkbox"
+          id="user-profile-assigned-roles-clients-select-all"
+          [(ngModel)]="selectAll"
+          [ngModelOptions]="{ standalone: true }"
+          (change)="selectAllData()"
+        />
+        <label class="form-check-label font-weight-bold f-14 my-1 vertical-text-top">
+          Select All
+        </label>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template ng-multi-label-tmp>
+    <div *ngIf="
+        selectedValues.length == 1 &&
+        selectedValues.length != fliteredData.length
+      ">
+      {{ firstSelectedData[0][_bindLabel] }}
+    </div>
+    <div *ngIf="
+        selectedValues.length > 1 &&
+        selectedValues.length != fliteredData.length &&
+        !isSelectAllClicked
+      ">
+      {{ selectedText }} ({{ selectedValues.length }})
+    </div>
+    <div *ngIf="
+        selectedValues.length > 0 &&
+        selectedValues.length === fliteredData.length
+      ">
+      Selected All
+    </div>
+  </ng-template>
+
+  <ng-template
+    ng-option-tmp
+    let-item="item"
+    let-item$="item$"
+    let-index="index"
+  >
+    <div
+      title="{{ item[_bindLabel] }}"
+      class="cons-ng-option cons-ng-option-overflow"
+    >
+      <input
+        class="form-check-input m-2 p-2"
+        type="checkbox"
+        id="user-profile-assigned-roles-clients-select-{{ index }}"
+        [(ngModel)]="item$.selected"
+      />
+      <label class="form-check-label my-1 vertical-text-top">
+        <span>
+          {{ item[_bindLabel] }}
+        </span>
+      </label>
+    </div>
+  </ng-template>
+</ng-select>

@@ -1,0 +1,16 @@
+  
+.filter-placeholder {
+    height: 38px;
+}
+
+.cdk-table-wrapper {
+    min-height: calc(100vh - 400px) !important;
+    max-height: calc(100vh - 400px) !important;
+}
+
+.filter-row {
+    position: sticky;
+    top: 41px;
+    z-index: 1;
+}
+

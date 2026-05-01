@@ -1,0 +1,17 @@
+<div class="d-sm-flex">
+    <ng-select id="custom-date-range" [items]="dateRangeList" bindValue="value" bindLabel="date_range"
+        class="mb-1 ng-select-sm-option" placeholder="Select Date Range" appendTo="body" [clearable]="false"
+        [(ngModel)]="selectedDateRangeOption" [searchable]="false" [disabled]="disabledDateRangOptionDropDown"
+        (change)="dateRangeOptionChange()">
+    </ng-select>
+    <!-- details date range filter -->
+    <div class="input-group hc-datepicker-input-group htc-min-width-230 w-sm-100 me-sm-1 mb-1 w-25"
+        id="custom-date-range-picker">
+        <input type="text" class="form-control hc-datepicker-input" id="date-range-input"
+            [disabled]="selectedDateRangeOption !== 5" #dp="bsDaterangepicker" bsDaterangepicker
+            [bsConfig]="{ containerClass: 'hc-date-range-container', showClearButton: true, showPreviousMonth: true, showWeekNumbers:false }"
+            placement="bottom" placeholder="Date Range" [minDate]="minDate" [maxDate]="maxDate"
+            [(ngModel)]="selectedDateRange" (ngModelChange)="dateRangeChange()">
+        <fa-icon [icon]="fa.faCalendarAlt" class="calender-icon" (click)="dateToggling(dp)"></fa-icon>
+    </div>
+</div>

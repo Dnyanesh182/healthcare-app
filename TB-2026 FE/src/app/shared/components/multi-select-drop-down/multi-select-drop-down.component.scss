@@ -1,0 +1,77 @@
+.form-check-label {
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    width: calc(99% - 34px);
+    text-overflow: ellipsis !important;
+    cursor: pointer;
+}
+
+.form-control {
+    width: 100% !important;
+    margin-left: 0px !important;
+    padding-left: 12px !important;
+    font-size: 12px !important;
+}
+
+.clear-button {
+    position: absolute;
+    top: 27px;
+    font-size: 20px;
+    right: 16px;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+.form-check-input {
+    margin-top: 6px !important;
+    cursor: pointer;
+}
+
+::ng-deep .grid-filter-dropdown.ng-select-multiple {
+    .ng-select-container .ng-value-container {
+        padding-top: 0px !important;
+    }
+}
+
+::ng-deep .ng-select-multiple.grid-filter-dropdown.ng-dropdown-panel {
+    .ng-dropdown-panel-items .ng-option {
+        padding: 0.1rem 0.5rem;
+        cursor: pointer;
+
+        .ng-option-child {
+            padding: 0.1rem 0.5rem;
+            cursor: pointer;
+        }
+    }
+}
+
+::ng-deep .grid-filter-dropdown.ng-dropdown-panel {
+    width: auto !important;
+    max-width: unset;
+    white-space: nowrap;
+    font-size: 12px !important;
+}
+
+::ng-deep .grid-filter-dropdown.ng-select .ng-select-container {
+   height: 25px !important;
+   min-height: auto !important;
+   font-size: 12px !important;
+}
+
+::ng-deep .grid-filter-dropdown.ng-select .ng-select-container .ng-value-container .ng-placeholder {
+    top: 3px;
+    padding-bottom: 0px;
+    padding-left: 3px;
+    text-overflow: ellipsis !important;
+    font-weight: 400;
+    color: #808080;
+}
+
+::ng-deep .grid-filter-dropdown.ng-select-multiple .ng-select-container .ng-value-container div:not(.ng-input){
+    max-width: 81%;
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+}

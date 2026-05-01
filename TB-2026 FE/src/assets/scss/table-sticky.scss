@@ -1,0 +1,68 @@
+.table-sticky
+{
+	border-collapse : separate;
+	border-spacing  : 0;
+
+	thead th
+	{
+		position : sticky;
+		top      : 0;
+		z-index  : 2 !important;
+	}
+
+	tbody tr:first-child td
+	{
+		border-top : 0;
+	}
+}
+
+.table-hover
+{
+	tbody
+	{
+		tr{
+			&:hover, &.table-active, &.table-active:hover
+			{
+  				background-color: #EEEEEE !important;
+                td{
+                    background-color: #EEEEEE !important;
+                }
+			}
+
+            .cdk-table-sticky{
+                &:hover{
+                z-index: 2 !important;
+                }
+            }
+
+		}
+	}
+}
+
+.table-striped tbody tr:nth-of-type(2n+1) {
+	background-color: rgba(251, 251, 251, 1);
+}
+
+
+.table th, .table td
+{
+	padding: 0.45rem !important;
+}
+
+.action-button{
+	color:var(--primary);
+    border-color: var(--primary);
+    font-size: 12px;
+    margin-right: 5px;
+    padding: 0.14rem 0.40rem;
+}
+
+.table-striped tbody tr:nth-of-type(2n+1) td.cdk-table-sticky
+{
+    background-color: #fbfbfb;
+}
+
+.table-striped tbody tr:nth-of-type(2n) td.cdk-table-sticky
+{
+    background-color: white;
+}

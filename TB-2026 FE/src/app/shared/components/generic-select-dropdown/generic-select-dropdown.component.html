@@ -1,0 +1,15 @@
+<div class="custom-dropdown" (click)="toggleDropdown()">
+  <div class="selected-item p-2 px-3 d-flex">
+    <div class="pe-5 htc-selected-item-style">{{ selectedItem?.[displayKey] || placeholder }}</div>  <div><i class="fas fa-angle-down"></i></div>
+  </div>
+
+  <ul class="dropdown-menu" *ngIf="isDropdownOpen">
+    <li
+      *ngFor="let item of options"
+      (click)="selectItem(item, $event)"
+      [class.selected]="item[valueKey] === selectedItem?.[valueKey]"
+    >
+      {{ item[displayKey] }}
+    </li>
+  </ul>
+</div>

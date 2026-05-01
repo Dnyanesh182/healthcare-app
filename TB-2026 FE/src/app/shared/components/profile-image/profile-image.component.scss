@@ -1,0 +1,41 @@
+.profile-image-container {
+    width: 150px;
+    height: 150px;
+    position: relative;
+}
+
+.profile-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid #dee2e6;
+}
+
+.image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.profile-image-container:hover .image-overlay {
+    opacity: 1;
+}
+
+.hr-grey-text {
+    color: #686F73
+}
+
+.teal-text {
+    color: teal;
+}

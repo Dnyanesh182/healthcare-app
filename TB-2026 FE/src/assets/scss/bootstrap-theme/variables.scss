@@ -1,0 +1,92 @@
+@import '~bootstrap/scss/functions';
+
+/* COLORS */
+
+$white    : #fff;
+$gray-100 : #f8f9fa;
+$gray-200 : #e9ecef;
+$gray-300 : #dee2e6;
+$gray-400 : #ced4da;
+$gray-500 : #adb5bd;
+$gray-600 : #6c757d;
+$gray-700 : #495057;
+$gray-800 : #343a40;
+$gray-900 : #212529;
+$black    : #000;
+
+$primary   : #663399;
+$warning   : #FFAC07;
+
+$link-color            : $primary;
+$link-hover-decoration : none;
+
+/* GLOBAL DEFAULTS */
+
+$enable-caret            : false;
+$enable-validation-icons : false;
+
+/* GRID */
+
+$grid-gutter-width : 10px;
+
+/* TYPOGRAPHY */
+
+$font-size-base         : .75rem;
+$font-family-sans-serif : Roboto, sans-serif;
+$font-weight-bold       : 600;
+
+$h1-font-size : $font-size-base * 1.762 !default;
+$h2-font-size : $font-size-base * 1.574 !default;
+$h3-font-size : $font-size-base * 1.405 !default;
+$h4-font-size : $font-size-base * 1.254 !default;
+$h5-font-size : $font-size-base * 1.12 !default;
+$h6-font-size : $font-size-base !default;
+
+$headings-margin-bottom : 0;
+$headings-font-weight   : 600 !default;
+
+/* INPUTS AND BUTTONS */
+
+$component-active-bg      : $primary;
+$input-focus-border-color : lighten($primary, 25%) !default;
+
+$input-btn-focus-width : 0;
+$input-border-color    : $gray-300;
+$input-group-addon-bg  : $white;
+
+$input-border-radius    : 3px;
+$input-border-radius-lg : 3px;
+$input-border-radius-sm : 3px;
+
+$btn-border-radius    : 3px;
+$btn-border-radius-lg : 3px;
+$btn-border-radius-sm : 3px;
+
+$custom-select-border-radius : 3px;
+
+$custom-control-indicator-checked-disabled-bg : rgba($primary, .5);
+$custom-control-indicator-focus-border-color  : lighten($primary, 25%);
+
+$input-btn-padding-y   : .25rem;
+$input-btn-padding-x   : .5rem;
+$input-btn-font-size   : .9rem;
+
+/* LABELS */
+
+$label-margin-bottom : 0;
+
+/* TABLES */
+
+$table-cell-padding  : .25rem;
+
+/* CARD */
+
+$card-spacer-y : .35rem;
+$card-spacer-x : .5rem;
+
+/* Modals */
+
+$modal-inner-padding    : .5rem;
+$modal-header-padding-y : .5rem;
+$modal-header-padding-x : .5rem;
+$modal-header-padding   : $modal-header-padding-y $modal-header-padding-x;

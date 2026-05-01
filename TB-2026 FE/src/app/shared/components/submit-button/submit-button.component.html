@@ -1,0 +1,7 @@
+<button class="btn btn-teal w-100" type="submit" >
+	<ng-container *ngIf="!submitting">{{defaultText}}</ng-container>
+	<ng-container *ngIf="submitting">
+        <i class="fa fa-spinner fa-spin"></i>
+		<span class="submit_text">{{submitText}}</span>
+	</ng-container>
+</button>

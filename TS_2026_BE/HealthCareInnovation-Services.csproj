@@ -1,0 +1,34 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <RootNamespace>HealthCareInnovation_Services</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Azure.AI.OpenAI" Version="2.2.0-beta.4" />
+    <PackageReference Include="Azure.Core" Version="1.49.0" />
+    <PackageReference Include="Azure.Storage.Queues" Version="12.21.0" />
+    <PackageReference Include="BCrypt.Net-Core" Version="1.6.0" />
+    <PackageReference Include="ClosedXML" Version="0.105.0" />
+    <PackageReference Include="CsvHelper" Version="33.1.0" />
+    <PackageReference Include="ElmahCore" Version="2.1.2" />
+    <PackageReference Include="EPPlus" Version="4.5.3.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Cryptography.Internal" Version="8.0.13" />
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.3.0" />
+    <PackageReference Include="Microsoft.IdentityModel.Protocols" Version="7.1.2" />
+    <PackageReference Include="Microsoft.IdentityModel.Protocols.OpenIdConnect" Version="7.1.2" />
+    <PackageReference Include="Microsoft.SharePointOnline.CSOM" Version="16.1.25611.12000" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+
+    <PackageReference Include="PdfPig" Version="0.1.11" />
+    <PackageReference Include="PDFsharp" Version="6.2.1" />
+    <PackageReference Include="QuestPDF" Version="2025.1.6" />
+    <PackageReference Include="Spire.Doc" Version="13.8.1" />
+    <PackageReference Include="Spire.PDF" Version="11.8.0" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.1.2" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,14 @@
+.btn-text
+{
+	padding : 0 .25em;
+
+	&:not(:disabled):hover
+	{
+		background: HSLA(0, 0%, 0%, 10%);
+	}
+
+	&:disabled
+	{
+		cursor : initial;
+	}
+}

@@ -1,0 +1,212 @@
+<div class="customs-container">
+  <form [formGroup]="shareponitForm" (ngSubmit)="onSharepointSubmit()" autocomplete="off">
+    <div [ngClass]="editClient ? 'container scrollable-content' : 'container add-content'">
+      <h6 class="mb-3 pt-2">Sharepoint Details</h6>
+
+      <div class="row g-4 pt-4 mb-3">
+        <div class="col-md-4">
+          <label>
+            SharePoint Username <span class="text-danger ">*</span>
+            <i class="fa fa-info-circle text-muted ms-2"
+              tooltip="Enter the email or username of the SharePoint user account with access to the target site. (Example:john.doe@yourcompany.com)"
+              container="body" placement="auto" [tooltipClass]="'tooltip-xs'"></i>
+          </label>
+          <input type="text" formControlName="sharepointusername" class="form-control" placeholder="Username"
+            autocomplete="username" />
+
+
+          <div
+            *ngIf="shareponitForm.get('sharepointusername')?.touched && shareponitForm.get('sharepointusername')?.invalid"
+            class="text-danger small">
+            <div *ngIf="shareponitForm.get('sharepointusername')?.errors?.['required']">
+              SharePoint Username is required.
+            </div>
+            <div *ngIf="shareponitForm.get('sharepointusername')?.errors?.['email']">
+              Enter a valid email address.
+            </div>
+            <div *ngIf="shareponitForm.get('sharepointusername')?.errors?.['maxlength']">
+              Maximum length is 100 characters.
+            </div>
+            <div *ngIf="shareponitForm.get('sharepointusername')?.errors?.['whitespace']">
+              Cannot be empty or just spaces.
+            </div>
+          </div>
+
+        </div>
+
+
+        <div class="col-md-4">
+          <label>Sharepoint Password <span class="text-danger">*</span>
+            <i class="fa fa-info-circle text-muted ms-2"
+              tooltip="Enter the password for the above SharePoint user account. Ensure it is kept secure."
+              container="body" placement="auto" [tooltipClass]="'tooltip-xs'"></i>
+          </label>
+          <div class="position-relative">
+            <input class="form-control pr-5"
+              [type]="showPassword ? 'text' : 'password'"
+              formControlName="sharepointpassword" placeholder="Password" autocomplete="new-password" />
+            <i class="fa" [ngClass]="showPassword ? 'fa-eye' : 'fa-eye-slash'"
+              style="position: absolute; top: 50%; right: 10px; transform: translateY(-50%); cursor: pointer;"
+              (click)="showPassword = !showPassword"></i>
+          </div>
+
+          <div
+            *ngIf="shareponitForm.get('sharepointpassword')?.touched && shareponitForm.get('sharepointpassword')?.invalid"
+            class="text-danger small">
+            <div *ngIf="shareponitForm.get('sharepointpassword')?.errors?.['required']">
+              SharePoint Password is required.
+            </div>
+            <div *ngIf="shareponitForm.get('sharepointpassword')?.errors?.['minlength']">
+              Minimum length is 6 characters.
+            </div>
+            <div *ngIf="shareponitForm.get('sharepointpassword')?.errors?.['whitespace']">
+              Cannot be empty or just spaces.
+            </div>
+          </div>
+
+        </div>
+
+
+
+        <div class="col-md-4">
+          <label>Sharepoint URL <span class="text-danger">*</span>
+            <i class="fa fa-info-circle text-muted ms-2"
+              tooltip="Enter the full URL of your SharePoint site or subsite where the folder is located. (Example:https://yourcompany.sharepoint.com/sites/projectname)"
+              placement="auto" container="body" [tooltipClass]="'tooltip-xs'"></i>
+          </label>
+          <input type="text" formControlName="sharepointUrl" class="form-control" placeholder="Sharepoint url" />
+
+
+          <div *ngIf="shareponitForm.get('sharepointUrl')?.touched && shareponitForm.get('sharepointUrl')?.invalid"
+            class="text-danger small">
+            <div *ngIf="shareponitForm.get('sharepointUrl')?.errors?.['required']">
+              SharePoint URL is required.
+            </div>
+            <div *ngIf="shareponitForm.get('sharepointUrl')?.errors?.['pattern']">
+              URL must start with https://
+            </div>
+            <div *ngIf="shareponitForm.get('sharepointUrl')?.errors?.['maxlength']">
+              Maximum length is 500 characters.
+            </div>
+            <div *ngIf="shareponitForm.get('sharepointUrl')?.errors?.['whitespace']">
+              Cannot be empty or just spaces.
+            </div>
+          </div>
+
+        </div>
+
+
+      </div>
+
+
+      <div class="row g-4 mb-3">
+        <div class="col-md-4">
+          <label>Sharepoint App ID <span class="text-danger">*</span>
+            <i class="fa fa-info-circle text-muted ms-2 "
+              tooltip="Enter the App (Client) ID registered in Azure AD for SharePoint access via an application. (Example: 12345678-abcd-1234-ef00-9876543210ab)"
+              placement="auto" container="body" [tooltipClass]="'tooltip-xs'"></i>
+          </label>
+          <input type="text" formControlName="sharepointAppId" class="form-control" placeholder="App Id" />
+          <div *ngIf="shareponitForm.get('sharepointAppId')?.touched && shareponitForm.get('sharepointAppId')?.invalid"
+            class="text-danger small">
+            <div *ngIf="shareponitForm.get('sharepointAppId')?.errors?.['required']">
+              SharePoint App ID is required.
+            </div>
+            <div *ngIf="shareponitForm.get('sharepointAppId')?.errors?.['maxlength']">
+              Maximum length is 100 characters.
+            </div>
+            <div *ngIf="shareponitForm.get('sharepointAppId')?.errors?.['whitespace']">
+              Cannot be empty or just spaces.
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <label>Account secret ID <span class="text-danger">*</span>
+            <i class="fa fa-info-circle text-muted ms-2"
+              tooltip="Enter the secret key associated with your App ID. Used for secure authentication. (Example: wX3!t9sK%8Lq*#eA...)"
+              placement="auto" container="body" [tooltipClass]="'tooltip-xs'"></i>
+          </label>
+          <div class="position-relative">
+            <input class="form-control pe-5"
+              [type]="showSecretId ? 'text' : 'password'"
+              formControlName="accountSecretId"
+              placeholder="Account secret ID" autocomplete="off" />
+            <i class="fa" [ngClass]="showSecretId ? 'fa-eye' : 'fa-eye-slash'"
+              style="position: absolute; top: 50%; right: 10px; transform: translateY(-50%); cursor: pointer;"
+              (click)="showSecretId = !showSecretId"></i>
+          </div>
+
+
+          <div *ngIf="shareponitForm.get('accountSecretId')?.touched && shareponitForm.get('accountSecretId')?.invalid"
+            class="text-danger small">
+            <div *ngIf="shareponitForm.get('accountSecretId')?.errors?.['required']">
+              Account Secret ID is required.
+            </div>
+            <div *ngIf="shareponitForm.get('accountSecretId')?.errors?.['minlength']">
+              Minimum length is 6 characters.
+            </div>
+            <div *ngIf="shareponitForm.get('accountSecretId')?.errors?.['whitespace']">
+              Cannot be empty or just spaces.
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <label>Default Folder Path <span class="text-danger">*</span>
+            <i class="fa fa-info-circle text-muted ms-2"
+              tooltip="Specify the default folder name to be created inside the SharePoint folder path. Candidate files will be uploaded into this folder. (Example:NewCandidates2025)"
+              placement="auto" container="body" [tooltipClass]="'tooltip-xs'"></i>
+          </label>
+          <input type="text" formControlName="defaultFolderPath" class="form-control" placeholder="Folder path" />
+
+          <div
+            *ngIf="shareponitForm.get('defaultFolderPath')?.touched && shareponitForm.get('defaultFolderPath')?.invalid"
+            class="text-danger small">
+            <div *ngIf="shareponitForm.get('defaultFolderPath')?.errors?.['required']">
+              Default Folder Path is required.
+            </div>
+            <div *ngIf="shareponitForm.get('defaultFolderPath')?.errors?.['pattern']">
+              Must start with '/' or a letter (e.g. /Healthcare/Documents or MyFolder).
+            </div>
+            <div *ngIf="shareponitForm.get('defaultFolderPath')?.errors?.['whitespace']">
+              Cannot be empty or just spaces.
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="pt-2 pb-2">
+        <span class="text-danger small" *ngIf="selectedAccount?.sharePointConnectionError">
+          {{selectedAccount?.sharePointConnectionError}}
+        </span>
+
+      </div>
+
+    </div>
+
+
+    <div class="card-footer bg-light border-top d-flex flex-column gap-2 position-sticky bottom-0 pt-2">
+
+      <div class="d-flex justify-content-start gap-3 w-75">
+        <!-- {{isValueChanged}} -->
+        <button type="submit" class="btn btn-teal w-25"
+          [disabled]="shareponitForm.invalid || !isValueChanged">
+          Configure
+        </button>
+
+        <span class="text-warning pt-2" *ngIf="isVerifyingSharePoint">
+        Please wait while we are verifying your sharepoint details.
+      </span>      
+        <span *ngIf="sharepointerrorMessage" class="text-danger">
+          {{ sharepointerrorMessage }}
+        </span>
+
+        <span *ngIf="sharepointsuccessMsg" class="text-success">
+          {{ sharepointsuccessMsg }}
+        </span>
+      </div>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,318 @@
+<!-- ─── Add Account Form (shown when showAddAccount is true) ─────────────── -->
+<div *ngIf="showAddAccount" class="customs-container p-4 container-fluid">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-8 col-lg-6">
+
+      <!-- Header -->
+      <div class="d-flex align-items-center mb-4">
+        <button class="btn btn-sm btn-outline me-3" (click)="backToList()">
+          <i class="fa-solid fa-arrow-left"></i>
+        </button>
+        <span class="page-header mb-0">Add Account</span>
+      </div>
+
+      <!-- Card -->
+      <div class="card">
+        <div class="card-body p-4">
+          <form [formGroup]="createAccountForm" (ngSubmit)="submitNewAccount()" novalidate>
+
+            <!-- Account Name -->
+            <div class="form-group mb-3">
+              <label class="form-label" for="newAccountName">Account Name <span class="text-danger">*</span></label>
+              <input id="newAccountName" type="text" class="form-control"
+                formControlName="accountName" placeholder="Enter account name"
+                [ngClass]="{'is-invalid': createFormErrors.accountName}">
+              <div class="invalid-feedback">{{ createFormErrors.accountName }}</div>
+            </div>
+
+            <!-- Account Email -->
+            <div class="form-group mb-3">
+              <label class="form-label" for="newAccountEmail">Account Email <span class="text-danger">*</span></label>
+              <input id="newAccountEmail" type="email" class="form-control"
+                formControlName="accountEmail" placeholder="Enter account email"
+                [ngClass]="{'is-invalid': createFormErrors.accountEmail}">
+              <div class="invalid-feedback">{{ createFormErrors.accountEmail }}</div>
+            </div>
+
+            <!-- Address 1 -->
+            <div class="form-group mb-3">
+              <label class="form-label" for="newAddress1">Address 1</label>
+              <textarea id="newAddress1" rows="2" class="form-control"
+                formControlName="address1" placeholder="Enter address line 1"></textarea>
+            </div>
+
+            <!-- Address 2 -->
+            <div class="form-group mb-3">
+              <label class="form-label" for="newAddress2">Address 2</label>
+              <textarea id="newAddress2" rows="2" class="form-control"
+                formControlName="address2" placeholder="Enter address line 2"></textarea>
+            </div>
+
+            <!-- City & State in a row -->
+            <div class="row mb-3">
+              <div class="col-6">
+                <div class="form-group">
+                  <label class="form-label" for="newCity">City</label>
+                  <input id="newCity" type="text" class="form-control"
+                    formControlName="city" placeholder="City"
+                    [ngClass]="{'is-invalid': createFormErrors.city}">
+                  <div class="invalid-feedback">{{ createFormErrors.city }}</div>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="form-group">
+                  <label class="form-label" for="newState">State</label>
+                  <input id="newState" type="text" class="form-control"
+                    formControlName="state" placeholder="State"
+                    [ngClass]="{'is-invalid': createFormErrors.state}">
+                  <div class="invalid-feedback">{{ createFormErrors.state }}</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Zip Code -->
+            <div class="form-group mb-4">
+              <label class="form-label" for="newZip">Zip Code</label>
+              <input id="newZip" type="text" class="form-control"
+                formControlName="zipCode" placeholder="Enter zip code"
+                [ngClass]="{'is-invalid': createFormErrors.zipCode}">
+              <div class="invalid-feedback">{{ createFormErrors.zipCode }}</div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="d-flex gap-2">
+              <button type="button" class="btn btn-sm custom-cancel-button px-4 py-2"
+                (click)="backToList()">Cancel</button>
+              <button type="submit" class="btn btn-sm btn-teal htc-border-radius px-4 py-2"
+                [disabled]="isSavingAccount">
+                {{ isSavingAccount ? 'Saving...' : 'Save' }}
+              </button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ─── Accounts Grid (hidden while Add Account form is open) ─────────────── -->
+<div *ngIf="!showAddAccount" class="customs-container p-4 container-fluid">
+  <div class="row">
+
+    <div class="col-12 d-flex flex-wrap justify-content-between align-items-center mb-3">
+      <div class="d-flex align-items-center pb-2">
+        <span class="mb-0 me-3 page-header">Accounts List</span>
+      </div>
+      <div class="mt-2 mt-md-0">
+        <button class="btn btn-sm btn-teal htc-border-radius px-4 py-2" (click)="addAccount()">
+          Add Account
+        </button>
+      </div>
+    </div>
+    <div class="col-12">
+      <div class="cdk-table-wrapper table-responsive">
+        <table cdk-table [dataSource]="paginatedData" class="cdk-table" aria-label="Accounts table with sortable columns like Account Name">
+
+          <!-- Account Name -->
+          <ng-container cdkColumnDef="nameLabel">
+            <th cdk-header-cell *cdkHeaderCellDef>
+              <div class="sortable-header ps-1" (click)="sortBy('name')">
+                Account Name
+                <fa-icon [icon]="sortColumn() !== 'name' ? fa.faSort : (sortDirection() === 'asc' ? fa.faSortUp : fa.faSortDown)"
+                  class="ms-2 text-muted htc-font-size-10"></fa-icon>
+              </div>
+            </th>
+          </ng-container>
+          <ng-container cdkColumnDef="nameFilter">
+            <th cdk-header-cell *cdkHeaderCellDef>
+              <div class="filter-input-wrapper">
+                <input class="custom-header-filter" [formControl]="filterControls['name']" placeholder="Account Name" />
+                <fa-icon *ngIf="filterControls['name'].value" [icon]="fa.faTimes" class="clear-icon"
+                  (click)="filterControls['name'].setValue('')"></fa-icon>
+              </div>
+            </th>
+          </ng-container>
+
+          <ng-container cdkColumnDef="name">
+            <td cdk-cell *cdkCellDef="let row; let i = index">
+              <app-overflow-tooltip [text]="row.name"></app-overflow-tooltip>
+            </td>
+          </ng-container>
+
+
+          <!-- Email -->
+          <ng-container cdkColumnDef="emailLabel">
+            <th cdk-header-cell *cdkHeaderCellDef>
+              <div class="sortable-header ps-1" (click)="sortBy('email')">
+                Email
+                <fa-icon
+                  [icon]="sortColumn() !== 'email' ? fa.faSort : (sortDirection() === 'asc' ? fa.faSortUp : fa.faSortDown)"
+                  class="ms-2 text-muted htc-font-size-10"></fa-icon>
+              </div>
+            </th>
+          </ng-container>
+          <ng-container cdkColumnDef="emailFilter">
+            <th cdk-header-cell *cdkHeaderCellDef>
+              <div class="filter-input-wrapper">
+                <input class="custom-header-filter" [formControl]="filterControls['email']" placeholder="Email" />
+                <fa-icon *ngIf="filterControls['email'].value" [icon]="fa.faTimes" class="clear-icon"
+                  (click)="filterControls['email'].setValue('')"></fa-icon>
+              </div>
+            </th>
+          </ng-container>
+
+          <ng-container cdkColumnDef="email">
+            <td cdk-cell *cdkCellDef="let row; let i = index">
+              <app-overflow-tooltip [text]="row.email"></app-overflow-tooltip>
+            </td>
+          </ng-container>
+
+          <!-- City -->
+          <ng-container cdkColumnDef="cityLabel">
+            <th cdk-header-cell *cdkHeaderCellDef>
+              <div class="sortable-header ps-1" (click)="sortBy('city')">
+                City
+                <fa-icon [icon]="sortColumn() !== 'city' ? fa.faSort : (sortDirection() === 'asc' ? fa.faSortUp : fa.faSortDown)"
+                  class="ms-2 text-muted htc-font-size-10"></fa-icon>
+              </div>
+            </th>
+          </ng-container>
+          <ng-container cdkColumnDef="cityFilter">
+            <th cdk-header-cell *cdkHeaderCellDef>
+              <div class="filter-input-wrapper">
+                <input class="custom-header-filter" [formControl]="filterControls['city']" placeholder="City" />
+                <fa-icon *ngIf="filterControls['city'].value" [icon]="fa.faTimes" class="clear-icon"
+                  (click)="filterControls['city'].setValue('')"></fa-icon>
+              </div>
+            </th>
+          </ng-container>
+          <ng-container cdkColumnDef="city">
+            <td cdk-cell *cdkCellDef="let row; let i = index">
+              <app-overflow-tooltip [text]="row.city"></app-overflow-tooltip>
+            </td>
+          </ng-container>
+
+          <!-- State -->
+          <ng-container cdkColumnDef="stateLabel">
+            <th cdk-header-cell *cdkHeaderCellDef>
+              <div class="sortable-header ps-1" (click)="sortBy('state')">
+                State
+                <fa-icon
+                  [icon]="sortColumn() !== 'state' ? fa.faSort : (sortDirection() === 'asc' ? fa.faSortUp : fa.faSortDown)"
+                  class="ms-2 text-muted htc-font-size-10"></fa-icon>
+              </div>
+            </th>
+          </ng-container>
+          <ng-container cdkColumnDef="stateFilter">
+            <th cdk-header-cell *cdkHeaderCellDef>
+              <div class="filter-input-wrapper">
+                <input class="custom-header-filter" [formControl]="filterControls['state']" placeholder="State" />
+                <fa-icon *ngIf="filterControls['state'].value" [icon]="fa.faTimes" class="clear-icon"
+                  (click)="filterControls['state'].setValue('')"></fa-icon>
+              </div>
+            </th>
+          </ng-container>
+
+          <ng-container cdkColumnDef="state">
+            <td cdk-cell *cdkCellDef="let row; let i = index">
+              <app-overflow-tooltip [text]="row.state"></app-overflow-tooltip>
+            </td>
+          </ng-container>
+
+          <!-- Status -->
+          <ng-container cdkColumnDef="isActiveLabel">
+            <th cdk-header-cell *cdkHeaderCellDef>Status</th>
+          </ng-container>
+          <ng-container cdkColumnDef="isActiveFilter">
+            <th cdk-header-cell *cdkHeaderCellDef>
+              <ng-select class="custom-header-filter custon-size-style width-auto" [items]="['Active', 'Inactive']"
+                [clearable]="true" [searchable]="false" placeholder="All" [formControl]="filterControls['status']">
+              </ng-select>
+            </th>
+          </ng-container>
+          <ng-container cdkColumnDef="isActive">
+            <td cdk-cell *cdkCellDef="let row">
+              <label class="switch">
+                <input type="checkbox" [checked]="row.isActive" (change)="onStatusToggle($event, row)" />
+                <span class="slider round"></span>
+              </label>
+            </td>
+          </ng-container>
+
+          <!-- Total Users -->
+          <ng-container cdkColumnDef="totalUsersLabel">
+            <th cdk-header-cell *cdkHeaderCellDef>
+              <div class="sortable-header ps-1" (click)="sortBy('totalUsers')">
+                Total Users
+              <fa-icon [icon]="sortColumn() !== 'totalUsers' ? fa.faSort : (sortDirection() === 'asc' ? fa.faSortUp : fa.faSortDown)"
+                class="ms-2 text-muted htc-font-size-10"></fa-icon>
+              </div>
+            </th>
+          </ng-container>
+          <ng-container cdkColumnDef="totalUsersFilter">
+            <th cdk-header-cell *cdkHeaderCellDef>
+              <div class="filter-input-wrapper">
+                <input class="custom-header-filter" [formControl]="filterControls['totalUsers']"
+                  placeholder="Total Users" />
+                <fa-icon *ngIf="filterControls['totalUsers'].value" [icon]="fa.faTimes" class="clear-icon"
+                  (click)="filterControls['totalUsers'].setValue('')"></fa-icon>
+              </div>
+            </th>
+          </ng-container>
+          <ng-container cdkColumnDef="totalUsers">
+            <td cdk-cell *cdkCellDef="let row">{{ row.totalUsers }}</td>
+          </ng-container>
+
+          <!-- Actions -->
+          <ng-container cdkColumnDef="actionsLabel">
+            <th cdk-header-cell *cdkHeaderCellDef>Actions</th>
+          </ng-container>
+          <ng-container cdkColumnDef="actionsFilter">
+            <th cdk-header-cell *cdkHeaderCellDef></th>
+          </ng-container>
+          <ng-container cdkColumnDef="actions">
+            <td cdk-cell *cdkCellDef="let row">
+              <i class="fa fa-edit text-primary" [style.cursor]="row.isActive ? 'pointer' : 'not-allowed'"
+                [style.opacity]="row.isActive ? 1 : 0.5" (click)="row.isActive && accountDetails(row)"
+                tooltip="Edit Account"></i>
+            </td>
+          </ng-container>
+
+          <!-- Header and Data Rows -->
+          <tr cdk-header-row *cdkHeaderRowDef="headerLabels; sticky: true" class="cdk-table-header-row"></tr>
+          <tr cdk-header-row *cdkHeaderRowDef="headerFilters; sticky: true" class="filter-row"></tr>
+          <tr cdk-row *cdkRowDef="let row; columns: displayedColumns"></tr>
+
+        </table>
+        <div *ngIf="paginatedData?.length === 0" class="text-center py-4">
+          No accounts available
+        </div>
+      </div>
+    </div>
+    <div class="col-12 mt-3">
+      <div class="d-flex flex-wrap align-items-center justify-content-end gap-3">
+        <div class="d-flex align-items-center gap-4 custom-pagination-controls">
+
+          <span class="records-text text-primary small">
+            Showing <strong>{{ paginatedData.length }}</strong> of <strong>{{ filteredRowCount }}</strong> Accounts
+          </span>
+
+          <div class="d-flex align-items-center gap-3 text-primary">
+            <label class="mb-0">Records per page</label>
+            <ng-select class="width-auto" [items]="pageSizeOptions" [clearable]="false" [ngModel]="pageSize"
+              (ngModelChange)="onPageSizeChange($event)">
+            </ng-select>
+          </div>
+
+          <pagination class="custom-pagination" [totalItems]="filteredRowCount" [itemsPerPage]="pageSize"
+            [formControl]="pageNumberControl" [maxSize]="5" previousText="&lsaquo;" nextText="&rsaquo;"
+            firstText="&lsaquo;&lsaquo;" lastText="&rsaquo;&rsaquo;" [boundaryLinks]="true">
+          </pagination>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

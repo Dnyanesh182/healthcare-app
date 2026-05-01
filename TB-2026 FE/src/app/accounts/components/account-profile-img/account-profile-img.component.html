@@ -1,0 +1,8 @@
+<div class="logo-card">
+  <div>Test</div>
+  <img [src]="logoUrl || DEFAULT_IMAGE" alt="Logo" class="logo-image" />
+  <div class="overlay-buttons">
+    <button class="btn edit-btn" (click)="updateLogo()">{{logoUrl ? "Edit" : "Add"}}</button>
+    <button *ngIf="logoUrl" class="btn remove-btn" (click)="removeLogo()">Remove</button>
+  </div>
+</div>

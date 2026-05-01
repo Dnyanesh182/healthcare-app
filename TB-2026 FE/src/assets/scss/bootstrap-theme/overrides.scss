@@ -1,0 +1,36 @@
+.table, ol, ul, dl
+{
+	margin-bottom : 0;
+}
+
+.table th, .table td
+{
+	vertical-align : middle;
+}
+
+.modal-header
+{
+	color            : var(--primary);
+	background-color : #ececec75 ;
+	border           : 2px solid #dee2e6;
+	padding 		 : 0.5em 1em;
+}
+
+.nav-tabs,
+.table th,
+.card-header
+{
+	text-transform : uppercase;
+	font-size      : 1em;
+	font-weight    : bold;
+}
+
+.modal-body
+{
+	padding : 1em;
+}
+
+.modal-footer
+{
+	padding : 0.5em 1em;
+}

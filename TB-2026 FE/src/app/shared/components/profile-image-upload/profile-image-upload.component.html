@@ -1,0 +1,25 @@
+<div class="d-flex align-items-stretch py-2">
+    <div class="hr-profileBlock me-3">
+      <img [src]="imageUrl" class="w-100" style="object-fit: cover;" alt="User profile" />
+    </div>
+    <div class="d-flex flex-column justify-content-between">
+      <div>
+        <div>
+          <span class="teal-text hr-font-size-20">{{ name }} </span>
+          <span class="hr-grey-text htc-font-size-16" *ngIf="role">| {{ role }}</span>
+        </div>
+        <div class="hr-grey-text htc-font-size-16">{{ username }}</div>
+      </div>
+      <button *ngIf="!isUploadPhoto" type="button" class="btn btn-teal mt-2 hr-w-150" (click)="onUploadClick()">
+        {{uploadButtonText}}
+      </button>
+     <div *ngIf="isUploadPhoto" class="d-flex gap-2">
+      <button type="button" class="btn  mt-2 hr-grey-bg-color hr-w-150" (click)="removePhoto()">
+       {{removeButtonText}}
+      </button>
+      <button type="button" class="btn btn-teal mt-2 hr-w-150" (click)="openChangePhotoModal()">
+        {{changeButtonText}}
+      </button>
+     </div>
+    </div>
+  </div>

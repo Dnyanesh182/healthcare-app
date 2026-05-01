@@ -1,0 +1,6 @@
+<div class="gradient-ring-loader" *ngIf="isLoading | async">
+  <img src="assets/workflow_iq_icon.png" alt="Loading..." />
+  <div class="ring">
+    <div *ngFor="let seg of segments" class="bar"></div>
+  </div>
+</div>

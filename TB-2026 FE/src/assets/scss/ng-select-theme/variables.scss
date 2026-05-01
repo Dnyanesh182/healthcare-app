@@ -1,0 +1,9 @@
+$ng-select-highlight          : $primary;
+$ng-select-border             : $gray-300;
+$ng-select-border-radius      : $btn-border-radius;
+$ng-select-bg                 : $white;
+$ng-select-box-shadow         : none;
+$ng-select-height             : calc(1.25em + 0.5rem + 2px);
+$ng-select-value-padding-left : 1em;
+$ng-select-selected           : lighten($ng-select-highlight, 38);
+$ng-select-marked             : lighten($ng-select-highlight, 50);
