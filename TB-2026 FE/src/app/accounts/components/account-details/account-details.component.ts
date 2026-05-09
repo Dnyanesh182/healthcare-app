@@ -333,7 +333,7 @@ export class AccountDetailsComponent implements OnInit {
   }
 
   public backToAccountGrid() {
-    this.router.navigate([APP_ROUTES_PATH_CONST.ACCOUNT_GRID]);
+    this.router.navigate(['/' + APP_ROUTES_PATH_CONST.ACCOUNT_GRID]);
   }
 
   public  onAccessoryToolChange(event: any, toolId: any) {

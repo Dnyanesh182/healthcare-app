@@ -27,7 +27,7 @@ namespace HealthCareInnovation_Services.Controllers
         public IActionResult GetAllAccounts([FromBody] AccountFilterRequest request)
         {
             var result = _accountService.GetAllAccounts(request);
-            return Ok(result);
+            return Ok(new { data = result.Data, totalCount = result.TotalCount });
         }
 
         [HttpPost("create")]
@@ -40,9 +40,7 @@ namespace HealthCareInnovation_Services.Controllers
         [HttpGet("{accountId}")]
         public IActionResult GetAccountById(int accountId)
         {
-            // Return account from in-memory list via filter
-            var result = _accountService.GetAllAccounts(new AccountFilterRequest { PageNumber = 1, PageSize = 100 });
-            var account = result.FirstOrDefault(a => a.AccountId == accountId);
+            var account = _accountService.GetAccountById(accountId);
             if (account == null) return NotFound();
             return Ok(account);
         }

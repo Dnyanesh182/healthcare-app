@@ -85,7 +85,7 @@ export class ClientGridComponent implements OnInit {
     Object.values(this.filterControls).forEach(control => {
       control.valueChanges.subscribe(() => {
         this.pageIndex.set(0);
-        this.pageNumberControl.setValue(1, { emitEvent: true });
+        this.pageNumberControl.setValue(1, { emitEvent: false });
         this.updatePaginatedData();
       });
     });
@@ -217,8 +217,9 @@ export class ClientGridComponent implements OnInit {
     };
     this.accountApiService.getAllAccounts(filterPayload).subscribe({
       next: (response: any) => {
-        if (response && response.length > 0) {
-          this.rowData = response.map((account: any) => ({
+        const accounts = response?.data || response;
+        if (accounts && accounts.length > 0) {
+          this.rowData = accounts.map((account: any) => ({
             id: account.accountId,
             name: account.accountName,
             email: account.accountEmail,
@@ -231,7 +232,7 @@ export class ClientGridComponent implements OnInit {
             accountLogoUrl: account.accountLogoUrl
           }));
           this.pageIndex.set(0);
-          this.pageNumberControl.setValue(1);
+          this.pageNumberControl.setValue(1, { emitEvent: false });
           this.updatePaginatedData();
         } else {
           this.rowData = [];

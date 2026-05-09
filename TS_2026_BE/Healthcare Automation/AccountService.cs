@@ -581,7 +581,7 @@ namespace HealthCareInnovation_Services.Healthcare_Automation
         public async Task<ServiceResult<UserDetailViewModel>> GetUserByIdAsync(string userId)
         {
             // Dummy data
-            return new ServiceResult<UserDetailViewModel>
+            return await Task.FromResult(new ServiceResult<UserDetailViewModel>
             {
                 Success = true,
                 Data = new UserDetailViewModel
@@ -593,7 +593,7 @@ namespace HealthCareInnovation_Services.Healthcare_Automation
                     LastName = "User",
                     IsActive = true
                 }
-            };
+            });
         }
 
         public List<TimeZoneViewModel> GetAllTimeZones()
@@ -612,7 +612,7 @@ namespace HealthCareInnovation_Services.Healthcare_Automation
             };
         }
 
-        public List<AccountDetailViewModel> GetAllAccounts(AccountFilterRequest request)
+        public PaginatedResult<AccountDetailViewModel> GetAllAccounts(AccountFilterRequest request)
         {
             var filtered = _accounts.Where(a =>
                 (string.IsNullOrEmpty(request.AccountName) || (a.AccountName != null && a.AccountName.Contains(request.AccountName, StringComparison.OrdinalIgnoreCase))) &&
@@ -620,13 +620,23 @@ namespace HealthCareInnovation_Services.Healthcare_Automation
                 (!request.Status.HasValue                  || a.IsActive == request.Status.Value)           &&
                 (string.IsNullOrEmpty(request.City)        || (a.City != null && a.City.Contains(request.City, StringComparison.OrdinalIgnoreCase)))                &&
                 (string.IsNullOrEmpty(request.State)       || (a.State != null && a.State.Contains(request.State, StringComparison.OrdinalIgnoreCase)))
-            );
+            ).ToList();
 
+            int totalCount = filtered.Count;
             int pageNumber = request.PageNumber ?? 1;
             int pageSize   = request.PageSize   ?? 10;
             var paginated  = filtered.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
 
-            return paginated;
+            return new PaginatedResult<AccountDetailViewModel>
+            {
+                Data = paginated,
+                TotalCount = totalCount
+            };
+        }
+
+        public AccountDetailViewModel? GetAccountById(int accountId)
+        {
+            return _accounts.FirstOrDefault(a => a.AccountId == accountId);
         }
 
         public ServiceResult<AccountDetailViewModel> CreateAccount(CreateAccountRequest request)
@@ -805,13 +815,21 @@ namespace HealthCareInnovation_Services.Healthcare_Automation
         List<UserListViewModel> GetAllUsers(UserListRequestModel obj);
         Task<ServiceResult<UserDetailViewModel>> GetUserByIdAsync(string userId);
         List<TimeZoneViewModel> GetAllTimeZones();
-        List<AccountDetailViewModel> GetAllAccounts(AccountFilterRequest request);
+        PaginatedResult<AccountDetailViewModel> GetAllAccounts(AccountFilterRequest request);
+        AccountDetailViewModel? GetAccountById(int accountId);
         ServiceResult<AccountDetailViewModel> CreateAccount(CreateAccountRequest request);
         ServiceResult<bool> UpdateAccount(AccountDetailViewModel account);
         ServiceResult<bool> UpdateAccountInfo(UpdateAccountInfoRequest request, int accountId);
         ServiceResult<bool> UpdateSharepointConfigurations(UpdateSharepointConfigurationsRequest request);
         ServiceResult<bool> UpdateAccountStatus(UpdateAccountStatusRequest request);
     }
+
+    public class PaginatedResult<T>
+    {
+        public List<T> Data { get; set; } = new();
+        public int TotalCount { get; set; }
+    }
+
     public class AccountFilterRequest
     {
         public int? PageNumber { get; set; } = 1;
@@ -821,6 +839,5 @@ namespace HealthCareInnovation_Services.Healthcare_Automation
         public bool? Status { get; set; }
         public string? City { get; set; }
         public string? State { get; set; }
-        public int? TotalUsers { get; set; }
     }
 }

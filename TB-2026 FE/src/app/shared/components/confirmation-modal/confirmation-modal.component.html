@@ -8,8 +8,8 @@
 </div>
 <div class="modal-footer">
   <button *ngIf="showCancelButton" class="btn btn-sm custom-cancel-button px-4 py-2 me-2" (click)="cancel()"
-  [style.background-color]="cancelButtonColor + ' !important'"
+  [style.background-color]="cancelButtonColor"
   >{{ cancelBtnText }}</button>
   <button *ngIf="showConfirmButton" class="btn btn-sm btn-teal htc-border-radius px-4 py-2" (click)="confirm()"
-  [style.background-color]="confirmButtonColor + ' !important'">{{ confirmBtnText }}</button>
+  [style.background-color]="confirmButtonColor">{{ confirmBtnText }}</button>
 </div>

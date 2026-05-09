@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import { LayoutContainerComponent } from './layout/components/layout-container/layout-container.component';
 import { ClientGridComponent } from './accounts/components/client-grid/client-grid.component';
 import { AccountDetailsComponent } from './accounts/components/account-details/account-details.component';
-import { APP_ROUTES_PATH_CONST } from './core/constants/app-routing-contants';;
+import { APP_ROUTES_PATH_CONST } from './core/constants/app-routing-contants';
 
 export const routes: Routes = [
   {
